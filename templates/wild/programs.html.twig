@@ -1,0 +1,27 @@
+{% extends "base.html.twig" %}
+
+{% block body %}
+    <div class="container-fluid">
+        <div class="container">
+            <h1>Voici les saisons de {{ program.title }} : </h1>
+            <p>{{ program.summary }}</p>
+            {% for season in seasons %}
+                <div>
+                    <h2><a href='/wild/{{ season.program.title|replace({' ': '-'})|lower }}/{{ season.number }}'>{{ season.number }}</a> / {{ season.year }}</h2>
+                    <p>{{ season.description }}</p>
+                    <ul>
+                        <li>Liste des épisodes</li>
+                        {% for episode in season.episodes %}
+                            <li><a href="#">{{ episode.title }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            {% else %}
+                Aucune saison trouvée.
+            {% endfor %}
+            <a href="{{ path('app_index') }}">
+                Retour à l'accueil
+            </a>
+        </div>
+    </div>
+{% endblock %}

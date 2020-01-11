@@ -1,3 +1,65 @@
-body {
-    
+@import "variable";
+
+* {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: greyscale;
 }
+
+body {
+    a:hover, a:focus {
+        outline: none;
+    }
+}
+
+.backlink {
+    color: $color-o1;
+}
+.backlink:hover {
+    text-decoration: none;
+    color: $color-o1;
+}
+
+.title {
+    margin: 15px 0;
+    color: $color-o1;
+}
+
+.programs {
+    .program {
+        background-color: $color-grey;
+        padding: 15px 0;
+        margin: 20px 0;
+        .img-wrapper {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            img {
+                max-height: 200px;
+            }
+        }
+        .info-wrapper {
+            .category {
+                text-decoration: underline;
+                font-weight: 600;
+            }
+        }
+    }
+    a.program:hover {
+        text-decoration: none;
+        color: $color-b2;
+    }
+}
+
+.seasons {
+    .season {
+        ul {
+            margin-left: 15px;
+            background-color: $color-grey;
+            display: inline-block;
+            padding: 15px;
+            padding-left: 45px;
+        }
+    }
+}
+
+

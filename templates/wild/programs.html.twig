@@ -1,25 +1,30 @@
 {% extends "base.html.twig" %}
 
+{% set bodyclass = bodyclass|default("")~" programs " %}
+
 {% block body %}
     <div class="container-fluid">
         <div class="container">
-            <h1>Voici les saisons de {{ program.title }} : </h1>
-            <p>{{ program.summary }}</p>
-            {% for season in seasons %}
-                <div>
-                    <h2><a href='/wild/{{ season.program.title|replace({' ': '-'})|lower }}/{{ season.number }}'>{{ season.number }}</a> / {{ season.year }}</h2>
-                    <p>{{ season.description }}</p>
-                    <ul>
-                        <li>Liste des épisodes</li>
-                        {% for episode in season.episodes %}
-                            <li><a href="#">{{ episode.title }}</li>
-                        {% endfor %}
-                    </ul>
+            <div class="row">
+                <div class="col-12">
+                    <h1 class="title">Liste des séries : </h1>
                 </div>
+            </div>
+            {% for program in programs %}
+                <a href="/wild/{{ program.title|replace({' ': '-'})|lower }}" class="row program">
+                    <div class="col-12 col-md-2 img-wrapper">
+                        <img src="{{ program.poster }}" class="img-fluid"/>
+                    </div>
+                    <div class="col-12 col-md-10 info-wrapper">
+                        <p class="category">Catégorie : {{ program.category.name }}</p>
+                        <h2>{{ loop.index }} / {{ program.title }}</h2>
+                        <p>{{ program.summary }}</p>
+                    </div>
+                </a>
             {% else %}
-                Aucune saison trouvée.
+                Aucune série trouvée.
             {% endfor %}
-            <a href="{{ path('app_index') }}">
+            <a class="backlink" href="{{ path('app_index') }}">
                 Retour à l'accueil
             </a>
         </div>

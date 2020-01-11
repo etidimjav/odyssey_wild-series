@@ -1,0 +1,28 @@
+{% extends "base.html.twig" %}
+
+{% set bodyclass = bodyclass|default("")~" episodes " %}
+
+{% block body %}
+    <div class="container-fluid">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <h1 class="title">Voici les épisodes de <a href="/wild/{{ program.title|replace({' ': '-'})|lower }}">{{ program.title }}</a> saison {{ seasonNumber }} : </h1>
+                </div>
+            </div>
+            {% for episode in episodes %}
+                <div class="row episode">
+                    <div class="col-12">
+                        <h2><a href="/wild/episode/{{ episode.id }}">{{ episode.number }} / {{ episode.title }}</a></h2>
+                        <p>{{ episode.synopsis }}</p>
+                    </div>
+                </div>
+            {% else %}
+                Aucun épisode trouvé.
+            {% endfor %}
+            <a class="backlink" href="{{ path('app_index') }}">
+                Retour à l'accueil
+            </a>
+        </div>
+    </div>
+{% endblock %}

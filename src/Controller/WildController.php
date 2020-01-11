@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Episode;
 use App\Entity\Program;
 use App\Repository\CategoryRepository;
 use App\Repository\EpisodeRepository;
@@ -32,7 +33,7 @@ class WildController extends AbstractController
         }
 
         return $this->render(
-            'wild/index.html.twig',
+            'wild/programs.html.twig',
             ['programs' => $programs]
         );
     }
@@ -126,10 +127,22 @@ class WildController extends AbstractController
             );
         }
 
-        return $this->render('wild/programs.html.twig', [
+        return $this->render('wild/seasons.html.twig', [
             'seasons' => $seasons,
             'program' => $program
         ]);
+    }
+
+    /**
+    * Getting episode from id
+    *
+    * @param integer $id Episode id
+    * @Route("/episode/{id}", name="show_episode")
+    * @return Response
+    */
+    public function showEpisode(Episode $episode):Response
+    {
+        return $this->render('wild/episode.html.twig', ['episode' => $episode]);
     }
 
     /**
@@ -154,16 +167,16 @@ class WildController extends AbstractController
             ->findOneBy(['number' => $seasonNumber]);
         $episodes = $episodeRepository
             ->findBy(['season' => $season], ['id' => 'ASC']);
-
+            
         if (!$episodes) {
             throw $this->createNotFoundException(
                 'No episode for '.$programName.' name and '.$seasonNumber.' season number, found in episode\'s table.'
             );
         }
 
-        return $this->render('wild/seasons.html.twig', [
+        return $this->render('wild/episodes.html.twig', [
             'episodes' => $episodes,
-            'programName' => $programName,
+            'program' => $program,
             'seasonNumber' => $seasonNumber,
         ]);
     }

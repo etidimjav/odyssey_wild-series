@@ -4,11 +4,13 @@ namespace App\Controller;
 
 use App\Entity\Episode;
 use App\Entity\Program;
+use App\Form\ProgramSearchType;
 use App\Repository\CategoryRepository;
 use App\Repository\EpisodeRepository;
 use App\Repository\ProgramRepository;
 use App\Repository\SeasonRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -20,21 +22,42 @@ class WildController extends AbstractController
     /**
      * @Route("", name="index")
     */
-    public function index() :Response
+    public function index(Request $request, CategoryRepository $categoryRepository, ProgramRepository $programRepository) :Response
     {
-        $programs = $this->getDoctrine()
-          ->getRepository(Program::class)
-          ->findAll();
+        $form = $this->createForm(
+            ProgramSearchType::class,
+            null
+        );
 
-        if (!$programs) {
-            throw $this->createNotFoundException(
-            'No program found in program\'s table.'
-            );
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted()) {
+            $data = $form->getData();
+            dump($data);
+            $search = $data['searchField'];
+            $category = $categoryRepository
+                ->findOneBy(['name' => $search]);
+            $programs = $programRepository
+                ->findBy(['category' => $category]);
+            if (!$programs) {
+                $this->addFlash('danger', 'No programs found for '.$search);
+            }
+        } else {
+            $programs = $this->getDoctrine()
+                ->getRepository(Program::class)
+                ->findAll();
+            if (!$programs) {
+                throw $this->createNotFoundException(
+                'No program found in program\'s table.'
+                );
+            }
         }
 
         return $this->render(
-            'wild/programs.html.twig',
-            ['programs' => $programs]
+            'wild/programs.html.twig', [
+                'programs' => $programs,
+                'form' => $form->createView(),
+            ]
         );
     }
 

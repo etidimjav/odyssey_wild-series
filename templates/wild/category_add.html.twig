@@ -1,0 +1,27 @@
+{% extends "base.html.twig" %}
+
+{% block body %}
+    <div class="container-fluid">
+        <div class="container">
+            <h1>Ajout d'une nouvelle catégorie de série</h1>
+            {% for message in app.flashes('success') %}
+                <div class="alert alert-success">
+                    {{ message }}
+                </div>
+            {% endfor %}
+            {{ form_start(form) }}
+                <div class="row">
+                    <div class="col-6">
+                        {{ form_row(form.name) }}
+                    </div>
+                    <div class="col-6 submit-wrapper">
+                        <button type="submit" name="btnSubmit">Envoyer</button>
+                    </div>
+                </div>
+            {{ form_end(form) }}
+            <a class="backlink" href="{{ path('app_index') }}">
+                Retour à l'accueil
+            </a>
+        </div>
+    </div>
+{% endblock %}

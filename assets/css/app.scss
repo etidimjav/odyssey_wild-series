@@ -32,6 +32,29 @@ form {
     }
 }
 
+.btn-link-wrapper {
+    display: flex;
+    align-items: center;
+    margin: 5px 0 15px;
+    .btn-link {
+        margin-right: 15px;
+    }
+}
+
+form {
+    .submit {
+        margin-bottom: 15px;
+    }
+}
+
+.program {
+    table {
+        img {
+            max-height: 250px;
+        }
+    }
+}
+
 .programs {
     .program {
         background-color: $color-grey;

@@ -3,35 +3,31 @@
 {% set bodyclass = bodyclass|default("")~" seasons " %}
 
 {% block body %}
-    <div class="container-fluid">
-        <div class="container">
-            <div class="row">
-                <div class="col-12">
-                    <h1 class="title">Voici les saisons de {{ program.title }} : </h1>
-                    <p>{{ program.summary }}</p>
-                </div>
-            </div>
-            {% for season in seasons %}
-                <div class="row season">
-                    <div class="col-12">
-                        <h2>Saison n°{{ season.number }} (année {{ season.year }})</h2>
-                        <p>{{ season.description }}</p>
-                        {% if season.episodes|length > 0 %}
-                            <ul>
-                                <li><a href="/wild/{{ season.program.title|replace({' ': '-'})|lower }}/{{ season.number }}">Liste des épisodes</a></li>
-                                {% for episode in season.episodes %}
-                                    <li><a href="/wild/episode/{{ episode.id }}">{{ episode.number }} : {{ episode.title }}</li>
-                                {% endfor %}
-                            </ul>
-                        {% endif %}
-                    </div>
-                </div>
-            {% else %}
-                Aucune saison trouvée.
-            {% endfor %}
-            <a class="backlink" href="{{ path('app_index') }}">
-                Retour à l'accueil
-            </a>
+    <div class="row">
+        <div class="col-12">
+            <h1 class="title">Voici les saisons de {{ program.title }} : </h1>
+            <p>{{ program.summary }}</p>
         </div>
     </div>
+    {% for season in seasons %}
+        <div class="row season">
+            <div class="col-12">
+                <h2>Saison n°{{ season.number }} (année {{ season.year }})</h2>
+                <p>{{ season.description }}</p>
+                {% if season.episodes|length > 0 %}
+                    <ul>
+                        <li><a href="/wild/{{ season.program.title|replace({' ': '-'})|lower }}/{{ season.number }}">Liste des épisodes</a></li>
+                        {% for episode in season.episodes %}
+                            <li><a href="/wild/episode/{{ episode.id }}">{{ episode.number }} : {{ episode.title }}</li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+            </div>
+        </div>
+    {% else %}
+        Aucune saison trouvée.
+    {% endfor %}
+    <a class="backlink" href="{{ path('app_index') }}">
+        Retour à l'accueil
+    </a>
 {% endblock %}

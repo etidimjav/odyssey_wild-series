@@ -3,45 +3,41 @@
 {% set bodyclass = bodyclass|default("")~" programs " %}
 
 {% block body %}
-    <div class="container-fluid">
-        <div class="container">
-            <div class="row">
-                <div class="col-12">
-                    <h1 class="title">Liste des séries : </h1>
-                </div>
-            </div>
-            {% for message in app.flashes('danger') %}
-                <div class="alert alert-danger">
-                    {{ message }}
-                </div>
-            {% endfor %}
-            {{ form_start(form) }}
-                <div class="row">
-                    <div class="col-6">
-                        {{ form_row(form.searchField) }}
-                    </div>
-                    <div class="col-6 submit-wrapper">
-                        <button type="submit" name="btnSearch">Rechercher</button>
-                    </div>
-                </div>
-            {{ form_end(form) }}
-            {% for program in programs %}
-                <a href="/wild/{{ program.title|replace({' ': '-'})|lower }}" class="row program">
-                    <div class="col-12 col-md-2 img-wrapper">
-                        <img src="{{ program.poster }}" class="img-fluid"/>
-                    </div>
-                    <div class="col-12 col-md-10 info-wrapper">
-                        <p class="category">Catégorie : {{ program.category.name }}</p>
-                        <h2>{{ loop.index }} / {{ program.title }}</h2>
-                        <p>{{ program.summary }}</p>
-                    </div>
-                </a>
-            {% else %}
-                Aucune série trouvée.
-            {% endfor %}
-            <a class="backlink" href="{{ path('app_index') }}">
-                Retour à l'accueil
-            </a>
+    <div class="row">
+        <div class="col-12">
+            <h1 class="title">Liste des séries : </h1>
         </div>
     </div>
+    {% for message in app.flashes('danger') %}
+        <div class="alert alert-danger">
+            {{ message }}
+        </div>
+    {% endfor %}
+    {{ form_start(form) }}
+        <div class="row">
+            <div class="col-6">
+                {{ form_row(form.searchField) }}
+            </div>
+            <div class="col-6 submit-wrapper">
+                <button type="submit" name="btnSearch">Rechercher</button>
+            </div>
+        </div>
+    {{ form_end(form) }}
+    {% for program in programs %}
+        <a href="/wild/{{ program.title|replace({' ': '-'})|lower }}" class="row program">
+            <div class="col-12 col-md-2 img-wrapper">
+                <img src="{{ program.poster }}" class="img-fluid"/>
+            </div>
+            <div class="col-12 col-md-10 info-wrapper">
+                <p class="category">Catégorie : {{ program.category.name }}</p>
+                <h2>{{ loop.index }} / {{ program.title }}</h2>
+                <p>{{ program.summary }}</p>
+            </div>
+        </a>
+    {% else %}
+        Aucune série trouvée.
+    {% endfor %}
+    <a class="backlink" href="{{ path('app_index') }}">
+        Retour à l'accueil
+    </a>
 {% endblock %}

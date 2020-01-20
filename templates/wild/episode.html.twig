@@ -3,19 +3,15 @@
 {% set bodyclass = bodyclass|default("")~" episode " %}
 
 {% block body %}
-    <div class="container-fluid">
-        <div class="container">
-            <div class="row">
-                <div class="col-12">
-                    <h1 class="title">Détail de l'épisode numéro {{ episode.number }}</h1>
-                    <h2><a href="/wild/{{ episode.season.program.title|replace({' ': '-'})|lower }}">{{ episode.season.program.title }}</a> - <a href="/wild/{{ episode.season.program.title|replace({' ': '-'})|lower }}/{{ episode.season.number }}">saison {{ episode.season.number }}</a></h2>
-                    <h3>{{ episode.number }} - {{ episode.title }}</h3><br />
-                    <p>{{ episode.synopsis }}</p>
-                </div>
-            </div>
-            <a class="backlink" href="{{ path('app_index') }}">
-                Retour à l'accueil
-            </a>
+    <div class="row">
+        <div class="col-12">
+            <h1 class="title">Détail de l'épisode numéro {{ episode.number }}</h1>
+            <h2><a href="/wild/{{ episode.season.program.title|replace({' ': '-'})|lower }}">{{ episode.season.program.title }}</a> - <a href="/wild/{{ episode.season.program.title|replace({' ': '-'})|lower }}/{{ episode.season.number }}">saison {{ episode.season.number }}</a></h2>
+            <h3>{{ episode.number }} - {{ episode.title }}</h3><br />
+            <p>{{ episode.synopsis }}</p>
         </div>
     </div>
+    <a class="backlink" href="{{ path('app_index') }}">
+        Retour à l'accueil
+    </a>
 {% endblock %}

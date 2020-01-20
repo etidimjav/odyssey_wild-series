@@ -19,7 +19,11 @@
         <header>
             {% include("navbar.html.twig") ignore missing %}
         </header>
-        {% block body %}{% endblock %}
+        <div class="container-fluid">
+            <div class="container">
+                {% block body %}{% endblock %}
+            </div>
+        </div>
         {% block javascripts %}
             {{ encore_entry_script_tags('app') }}
         {% endblock %}
